@@ -6,6 +6,9 @@
 		"lib": [
 			"es6"
 		],
+		"types": [
+			"@types/moment-duration-format",
+		],
 		"sourceMap": true,
 		"rootDir": "src",
 		"resolveJsonModule": true,

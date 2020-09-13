@@ -69,8 +69,10 @@ export async function userInputSettings(context: ExtensionContext) {
     const isNumber: string[] | null = reminder.match(/\d+/);
     let reminderIn: number;
     isNumber ? (reminderIn = parseInt(isNumber[0])) : (reminderIn = 0);
+    let locationID:number = getLocationNumber(location);
 
-    const saveObject: { location: string; reminderIn: number } = {
+    const saveObject: {locationID:number; location: string; reminderIn: number } = {
+      locationID,
       location,
       reminderIn,
     };
@@ -79,12 +81,16 @@ export async function userInputSettings(context: ExtensionContext) {
     // console.log(obj);
     window.showInformationMessage('Postavke spašene!');
   }
-
+  function getLocationNumber(location:string) {
+    return data['locations'].indexOf(location);
+  }
+  
+  
   try {
     const state = await collectUserInputs();
     saveSettings(state.location.label, state.reminder.label);
   } catch (error) {
-    console.error('User probably pressed ESC!', error);
+    console.error(error);
     window.showErrorMessage('Postavke nisu spašene!');
   }
 }
@@ -109,7 +115,6 @@ interface QuickPickParameters<T extends QuickPickItem> {
   activeItem?: T;
   placeholder: string;
   buttons?: QuickInputButton[];
-  shouldResume?: () => Thenable<boolean>;
 }
 
 class UserInputSettings {
@@ -152,16 +157,7 @@ class UserInputSettings {
   async showQuickPick<
     T extends QuickPickItem,
     P extends QuickPickParameters<T>
-  >({
-    title,
-    step,
-    totalSteps,
-    items,
-    activeItem,
-    placeholder,
-    buttons,
-    shouldResume,
-  }: P) {
+  >({ title, step, totalSteps, items, activeItem, placeholder, buttons }: P) {
     const disposables: Disposable[] = [];
     try {
       return await new Promise<
@@ -190,13 +186,7 @@ class UserInputSettings {
           }),
           input.onDidChangeSelection((items) => resolve(items[0])),
           input.onDidHide(() => {
-            (async () => {
-              reject(
-                shouldResume && (await shouldResume())
-                  ? InputFlowAction.resume
-                  : InputFlowAction.cancel
-              );
-            })().catch(reject);
+            window.showErrorMessage('Postavke nisu spašene!');
           })
         );
         if (this.current) {

@@ -1,31 +1,47 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-import { window, commands, ExtensionContext } from 'vscode';
-
+import {
+  commands,
+  ExtensionContext,
+  window,
+  StatusBarAlignment,
+  StatusBarItem,
+} from 'vscode';
 import { userInputSettings } from './userInput';
+import { updateStatusBar } from './statusBarManager';
+import { setInterval } from 'timers';
 
-export function activate(context: ExtensionContext) {
-  
-	
+
+let statusBarItem: StatusBarItem | null = null;
+
+export function getStatusBarItem() {
+  return statusBarItem;
+}
+
+export async function activate(context: ExtensionContext) {
   context.subscriptions.push(
-    commands.registerCommand('vaktija.helloWorld', async () => {
-      const options: {
-        [key: string]: (context: ExtensionContext) => Promise<void>;
-      } = {
-        userInputSettings,
-      };
-      const quickPick = window.createQuickPick();
-      quickPick.items = Object.keys(options).map((label) => ({ label }));
-      quickPick.onDidChangeSelection((selection) => {
-        if (selection[0]) {
-          options[selection[0].label](context).catch(console.error);
-        }
-      });
-      quickPick.onDidHide(() => quickPick.dispose());
-      quickPick.show();
+    commands.registerCommand('vaktija.userSettings', async () => {
+      await userInputSettings(context);
     })
   );
+  await createStatusBar(context);
+  
+  // let n = 20;
+  // setInterval(() =>{
+  //   n-=1;
+  //   updateStatusBar(n);
+  // },1000*60);
+ 
+}
+
+
+async function createStatusBar(context:ExtensionContext) {
+  setTimeout(() => {
+    statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 10);
+
+    let tooltip = 'Klikni da otvoriš postavke';
+
+    statusBarItem.tooltip = tooltip;
+    statusBarItem.command = 'vaktija.userSettings';
+    statusBarItem.show();
+    updateStatusBar(context);
+  }, 0);
 }
