@@ -6,11 +6,12 @@ import {
   StatusBarItem,
 } from 'vscode';
 import { userInputSettings } from './userInput';
-import { updateStatusBar } from './statusBarManager';
+import { vaktijaManager } from './vaktija-api/vaktijaManager';
 import { setInterval } from 'timers';
 
 
-let statusBarItem: StatusBarItem | null = null;
+
+let statusBarItem : StatusBarItem | null = null;
 
 export function getStatusBarItem() {
   return statusBarItem;
@@ -42,6 +43,6 @@ async function createStatusBar(context:ExtensionContext) {
     statusBarItem.tooltip = tooltip;
     statusBarItem.command = 'vaktija.userSettings';
     statusBarItem.show();
-    updateStatusBar(context);
+    vaktijaManager(context);
   }, 0);
 }
