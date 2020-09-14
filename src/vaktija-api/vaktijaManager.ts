@@ -9,14 +9,15 @@ interface VakatProps {
   vakatMoment: moment.Duration;
   humanizedVakat: string;
   vakatName: string;
+  location: string;
 }
 
 export function vaktijaManager(context: ExtensionContext): void {
   let vaktija = new Vaktija(context);
   let vakatProps: VakatProps | undefined = getVakatProps(vaktija);
   if (vakatProps) {
-    let { vakatName, humanizedVakat } = vakatProps;
-    let msg = `$(heart) ${vakatName} ${humanizedVakat} `;
+    let { vakatName, humanizedVakat, location } = vakatProps;
+    let msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
     updateStatusBar(msg);
   }
 }
@@ -27,6 +28,7 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
   let vakatMoment: moment.Duration;
   let humanizedVakat: string;
   let vakatName: string;
+  let location: string;
 
   if (vaktija.dailyVakats && vaktija.nextVakatPosition) {
     nextVakatPosition = vaktija.nextVakatPosition;
@@ -34,12 +36,14 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
     vakatMoment = Vaktija.getVakatMoment(vakatTime);
     humanizedVakat = Vaktija.humanizeVakat(vakatMoment);
     vakatName = Vaktija.getVakatName(nextVakatPosition);
+    location = vaktija.location;
     return {
       nextVakatPosition,
       vakatTime,
       vakatMoment,
       humanizedVakat,
       vakatName,
+      location,
     };
   }
   return;

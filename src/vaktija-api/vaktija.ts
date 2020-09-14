@@ -1,5 +1,10 @@
 import { ExtensionContext } from 'vscode';
-import { differences, vaktija,vakatNames } from '../data/vaktija.json';
+import {
+  differences,
+  vaktija,
+  vakatNames,
+  locations,
+} from '../data/vaktija.json';
 import moment from 'moment';
 import 'moment-duration-format';
 import 'moment-timezone';
@@ -124,8 +129,9 @@ type Vakat = {
 
 export class Vaktija {
   private _locationID: number = 77;
-  private _dailyVakats?: Vakat | undefined;
-  private _nextVakatPosition?: number;
+  private _location: string;
+  private _dailyVakats: Vakat | undefined;
+  private _nextVakatPosition: number | undefined;
   private _context: ExtensionContext;
 
   constructor(context: ExtensionContext) {
@@ -133,10 +139,15 @@ export class Vaktija {
     this.getLocationID();
     this._dailyVakats = this.getDailyVakats({});
     this._nextVakatPosition = this.getNextVakatPosition();
+    this._location = this.getLocation();
   }
 
   get locationID() {
     return this._locationID;
+  }
+
+  get location() {
+    return this._location;
   }
 
   get dailyVakats() {
@@ -153,6 +164,10 @@ export class Vaktija {
     if (userSettings) {
       this._locationID = userSettings['locationID'];
     }
+  }
+
+  private getLocation(): string {
+    return locations[this.locationID];
   }
 
   public getDailyVakats({
@@ -222,7 +237,7 @@ export class Vaktija {
   public static humanizeVakat(vakatMoment: moment.Duration) {
     return vakatMoment.humanize(true);
   }
-  public static getVakatName(vakatPosition:number):string{
+  public static getVakatName(vakatPosition: number): string {
     return vakatNames[vakatPosition];
   }
 }
