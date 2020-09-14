@@ -1,7 +1,8 @@
-import { ExtensionContext, StatusBarItem } from 'vscode';
+import { ExtensionContext } from 'vscode';
 import moment from 'moment';
 import { Vaktija } from './vaktija';
-import { getStatusBarItem } from '../extension';
+import { updateStatusBar } from '../status/statusManager';
+import {subject} from '../userInput';
 
 interface VakatProps {
   nextVakatPosition: number;
@@ -11,9 +12,19 @@ interface VakatProps {
   vakatName: string;
   location: string;
 }
-
+let vaktija;
 export function vaktijaManager(context: ExtensionContext): void {
-  let vaktija = new Vaktija(context);
+  subject.subscribe((msg) =>{
+    console.log(msg)
+    startVaktija(context);
+  });
+  startVaktija(context);
+ 
+}
+
+
+function startVaktija(context: ExtensionContext){
+  vaktija = getVaktija(context);
   let vakatProps: VakatProps | undefined = getVakatProps(vaktija);
   if (vakatProps) {
     let { vakatName, humanizedVakat, location } = vakatProps;
@@ -21,7 +32,12 @@ export function vaktijaManager(context: ExtensionContext): void {
     updateStatusBar(msg);
   }
 }
-
+function restartVaktija(context: ExtensionContext){
+  startVaktija(context);
+}
+function getVaktija(context: ExtensionContext): Vaktija {
+  return new Vaktija(context);
+}
 function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
   let nextVakatPosition: number;
   let vakatTime: string;
@@ -47,15 +63,4 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
     };
   }
   return;
-}
-
-function updateStatusBar(msg: string) {
-  let statusBarItem: StatusBarItem | null = getStatusBarItem();
-  if (statusBarItem === null) {
-    return;
-  }
-
-  if (typeof msg === 'string') {
-    statusBarItem.text = msg;
-  }
 }

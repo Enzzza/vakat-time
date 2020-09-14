@@ -6,12 +6,10 @@ import {
   StatusBarItem,
 } from 'vscode';
 import { userInputSettings } from './userInput';
-import { vaktijaManager } from './vaktija-api/vaktijaManager';
+import { vaktijaManager } from './vaktija/vaktijaManager';
 import { setInterval } from 'timers';
 
-
-
-let statusBarItem : StatusBarItem | null = null;
+let statusBarItem: StatusBarItem | null = null;
 
 export function getStatusBarItem() {
   return statusBarItem;
@@ -24,17 +22,15 @@ export async function activate(context: ExtensionContext) {
     })
   );
   await createStatusBar(context);
-  
+
   // let n = 20;
   // setInterval(() =>{
   //   n-=1;
   //   updateStatusBar(n);
   // },1000*60);
- 
 }
 
-
-async function createStatusBar(context:ExtensionContext) {
+async function createStatusBar(context: ExtensionContext) {
   setTimeout(() => {
     statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 10);
 

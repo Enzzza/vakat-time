@@ -8,7 +8,10 @@ import {
   ExtensionContext,
   QuickInputButtons,
 } from 'vscode';
+import { Subject } from 'rxjs';
 import data from './data/vaktija.json';
+
+export const subject = new Subject<string>();
 const reminderTimerList: number[] = [5, 10, 15];
 
 export async function userInputSettings(context: ExtensionContext) {
@@ -69,9 +72,13 @@ export async function userInputSettings(context: ExtensionContext) {
     const isNumber: string[] | null = reminder.match(/\d+/);
     let reminderIn: number;
     isNumber ? (reminderIn = parseInt(isNumber[0])) : (reminderIn = 0);
-    let locationID:number = getLocationNumber(location);
+    let locationID: number = getLocationNumber(location);
 
-    const saveObject: {locationID:number; location: string; reminderIn: number } = {
+    const saveObject: {
+      locationID: number;
+      location: string;
+      reminderIn: number;
+    } = {
       locationID,
       location,
       reminderIn,
@@ -80,12 +87,13 @@ export async function userInputSettings(context: ExtensionContext) {
     // const obj = context.globalState.get('userSettings');
     // console.log(obj);
     window.showInformationMessage('Postavke spašene!');
+    subject.next('Update status bar!');
+    //update StatusBar
   }
-  function getLocationNumber(location:string) {
+  function getLocationNumber(location: string) {
     return data['locations'].indexOf(location);
   }
-  
-  
+
   try {
     const state = await collectUserInputs();
     saveSettings(state.location.label, state.reminder.label);
