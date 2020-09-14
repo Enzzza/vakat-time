@@ -33,7 +33,12 @@ function startVaktija(){
     let msg:string;
     if(nextVakatPosition === 6){
       // ako je za danasnji dan pozicija 6
-      msg = `$(heart) ${location}: TODO do zore je! `;
+     
+      let zora = vaktija.dailyVakats?.vakat[0];
+      let zoraMoment = Vaktija.getVakatMoment(zora);
+      zoraMoment.add(24,"hours");
+      let zoraHuman = Vaktija.humanizeVakat(zoraMoment);
+      msg = `$(heart) ${location}: Zora ${zoraHuman} `;
     }else{
       msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
     }
