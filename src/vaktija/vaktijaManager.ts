@@ -13,30 +13,37 @@ interface VakatProps {
   location: string;
 }
 let vaktija;
+let globalContext:ExtensionContext;
 export function vaktijaManager(context: ExtensionContext): void {
+  globalContext = context;
   subject.subscribe((msg) =>{
-    console.log(msg)
-    startVaktija(context);
+    console.log(msg);
+    startVaktija();
   });
-  startVaktija(context);
+  startVaktija();
  
 }
 
 
-function startVaktija(context: ExtensionContext){
-  vaktija = getVaktija(context);
+function startVaktija(){
+  vaktija = getVaktija();
   let vakatProps: VakatProps | undefined = getVakatProps(vaktija);
   if (vakatProps) {
-    let { vakatName, humanizedVakat, location } = vakatProps;
-    let msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
+    let { vakatName, humanizedVakat, location ,nextVakatPosition} = vakatProps;
+    let msg:string;
+    if(nextVakatPosition === 6){
+      // ako je za danasnji dan pozicija 6
+      msg = `$(heart) ${location}: TODO do zore je! `;
+    }else{
+      msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
+    }
+    
     updateStatusBar(msg);
   }
 }
-function restartVaktija(context: ExtensionContext){
-  startVaktija(context);
-}
-function getVaktija(context: ExtensionContext): Vaktija {
-  return new Vaktija(context);
+
+function getVaktija(): Vaktija {
+  return new Vaktija(globalContext);
 }
 function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
   let nextVakatPosition: number;
