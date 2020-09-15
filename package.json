@@ -3,6 +3,7 @@
 	"displayName": "Vaktija",
 	"description": "Vaktija is plugin that notifies user about salah time.",
 	"version": "1.0.0",
+	"publisher": "EnisHabul",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
