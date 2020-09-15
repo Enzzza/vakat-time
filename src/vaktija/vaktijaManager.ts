@@ -18,7 +18,7 @@ let intervalID: any;
 export function vaktijaManager(context: ExtensionContext): void {
   globalContext = context;
   vaktija = getVaktija();
- 
+
 
   startVaktija();
   subject.subscribe((msg) => {
@@ -100,7 +100,7 @@ function showNotification(vakatMoment: moment.Duration, vakatName: string) {
   if (userMinutes) {
     if (minutesLeft === userMinutes) {
       window.showInformationMessage(
-        `${vakatName} je za ${userMinutes} minuta. ${ajet} \❤ \🕌`
+        `${vakatName} je za ${userMinutes} minuta. ${ajet} \❤️ `
       );
     }
   }
