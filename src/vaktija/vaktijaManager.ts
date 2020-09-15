@@ -1,5 +1,5 @@
 import { ExtensionContext, window } from 'vscode';
-import moment from 'moment';
+import moment, { min } from 'moment';
 import { Vaktija } from './vaktija';
 import { updateStatusBar } from '../status/statusManager';
 import { subject } from '../userInput';
@@ -18,7 +18,6 @@ let intervalID: any;
 export function vaktijaManager(context: ExtensionContext): void {
   globalContext = context;
   vaktija = getVaktija();
-
 
   startVaktija();
   subject.subscribe((msg) => {
@@ -86,23 +85,25 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
 }
 
 function showNotification(vakatMoment: moment.Duration, vakatName: string) {
-  let minutesLeft: number = parseInt(vakatMoment.format('m'));
+  let secondsLeft: number = Math.floor(parseInt(vakatMoment.asSeconds().toString()));
   const userSettings: any = globalContext.globalState.get('userSettings');
-  let userMinutes: number = 0;
-  let ajet =  `„O vjernici, tražite pomoć sa strpljenjem i obavljanjem na­maza! Allah je doista sa strpljivima.“ (El-­Bekare, 153.)`;
- 
+  let userSeconds: number = 0;
   
 
+  let ajet = `„O vjernici, tražite pomoć sa strpljenjem i obavljanjem na­maza! Allah je doista sa strpljivima.“ (El-­Bekare, 153.)`;
+  
+  console.log(Math.floor(parseInt(vakatMoment.asSeconds().toString())));
+ 
   if (userSettings) {
-    userMinutes = userSettings['reminderIn'];
+    userSeconds = userSettings['reminderIn'];
+    userSeconds *= 60;
   }
 
-  if (userMinutes) {
-    if (minutesLeft === userMinutes) {
+  if (userSeconds) {
+    if (secondsLeft === userSeconds) {
       window.showInformationMessage(
-        `${vakatName} je za ${userMinutes} minuta. ${ajet} \❤️ `
+        `${vakatName} je za ${userSeconds} minuta. ${ajet} \❤️ `
       );
     }
   }
-  
 }
