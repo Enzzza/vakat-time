@@ -134,6 +134,7 @@ export class Vaktija {
   private _nextVakatPosition: number | undefined;
   private _context: ExtensionContext;
 
+
   constructor(context: ExtensionContext) {
     this._context = context;
     this.getLocationID();
@@ -141,7 +142,12 @@ export class Vaktija {
     this._nextVakatPosition = this.getNextVakatPosition();
     this._location = this.getLocation();
   }
-
+  reset(){
+    this.getLocationID();
+    this._dailyVakats = this.getDailyVakats({});
+    this._nextVakatPosition = this.getNextVakatPosition();
+    this._location = this.getLocation();
+  }
   get locationID() {
     return this._locationID;
   }

@@ -2,7 +2,7 @@ import { ExtensionContext } from 'vscode';
 import moment from 'moment';
 import { Vaktija } from './vaktija';
 import { updateStatusBar } from '../status/statusManager';
-import {subject} from '../userInput';
+import { subject } from '../userInput';
 
 interface VakatProps {
   nextVakatPosition: number;
@@ -12,41 +12,51 @@ interface VakatProps {
   vakatName: string;
   location: string;
 }
-let vaktija;
-let globalContext:ExtensionContext;
+let vaktija: Vaktija;
+let globalContext: ExtensionContext;
+let intervalID:any;
 export function vaktijaManager(context: ExtensionContext): void {
   globalContext = context;
-  subject.subscribe((msg) =>{
-    console.log(msg);
-    startVaktija();
-  });
-  startVaktija();
- 
-}
-
-
-function startVaktija(){
   vaktija = getVaktija();
-  let vakatProps: VakatProps | undefined = getVakatProps(vaktija);
-  if (vakatProps) {
-    let { vakatName, humanizedVakat, location ,nextVakatPosition} = vakatProps;
-    let msg:string;
-    if(nextVakatPosition === 6){
-      // ako je za danasnji dan pozicija 6
-     
-      let zora = vaktija.dailyVakats?.vakat[0];
-      let zoraMoment = Vaktija.getVakatMoment(zora);
-      zoraMoment.add(24,"hours");
-      let zoraHuman = Vaktija.humanizeVakat(zoraMoment);
-      msg = `$(heart) ${location}: Zora ${zoraHuman} `;
-    }else{
-      msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
-    }
-    
-    updateStatusBar(msg);
-  }
+  startVaktija();
+  subject.subscribe((msg) => {
+    restartVaktija();
+  });
 }
 
+function startVaktija() {
+  intervalID = setInterval(() => {
+    let vakatProps: VakatProps | undefined = getVakatProps(vaktija);
+    if (vakatProps) {
+      let {
+        vakatName,
+        humanizedVakat,
+        location,
+        nextVakatPosition,
+      } = vakatProps;
+      let msg: string;
+      if (nextVakatPosition === 6) {
+        // ako je za danasnji dan pozicija 6
+        // u vaktiji napravit
+
+        let zora = vaktija.dailyVakats?.vakat[0];
+        let zoraMoment = Vaktija.getVakatMoment(zora);
+        zoraMoment.add(24, 'hours');
+        let zoraHuman = Vaktija.humanizeVakat(zoraMoment);
+        msg = `$(heart) ${location}: Zora ${zoraHuman} `;
+      } else {
+        msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
+      }
+
+      updateStatusBar(msg);
+    }
+  }, 1000);
+}
+function restartVaktija(): void {
+  vaktija.reset();
+  clearInterval(intervalID);
+  startVaktija();
+}
 function getVaktija(): Vaktija {
   return new Vaktija(globalContext);
 }
