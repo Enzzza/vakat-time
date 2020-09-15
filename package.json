@@ -1,11 +1,13 @@
 {
 	"name": "vaktija",
-	"displayName": "vaktija",
-	"description": "salah reminder",
-	"version": "0.0.1",
+	"displayName": "Vaktija",
+	"description": "Vaktija is plugin that notifies user about salah time.",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.49.0"
 	},
+	"license": "MIT",
+	"keywords": ["vaktija", "salah"],
 	"categories": [
 		"Other"
 	],
