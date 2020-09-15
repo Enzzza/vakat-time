@@ -101,7 +101,7 @@ function showNotification(vakatMoment: moment.Duration, vakatName: string) {
   if (userSeconds) {
     if (secondsLeft === userSeconds) {
       window.showInformationMessage(
-        `${vakatName} je za ${userSeconds} minuta. ${ajet} \❤️ `
+        `${vakatName} je za ${userSeconds/60} minuta. ${ajet} \❤️ `
       );
     }
   }
