@@ -1,4 +1,4 @@
-import { ExtensionContext } from 'vscode';
+import { ExtensionContext, window } from 'vscode';
 import moment from 'moment';
 import { Vaktija } from './vaktija';
 import { updateStatusBar } from '../status/statusManager';
@@ -14,10 +14,12 @@ interface VakatProps {
 }
 let vaktija: Vaktija;
 let globalContext: ExtensionContext;
-let intervalID:any;
+let intervalID: any;
 export function vaktijaManager(context: ExtensionContext): void {
   globalContext = context;
   vaktija = getVaktija();
+ 
+
   startVaktija();
   subject.subscribe((msg) => {
     restartVaktija();
@@ -33,21 +35,17 @@ function startVaktija() {
         humanizedVakat,
         location,
         nextVakatPosition,
+        vakatMoment,
       } = vakatProps;
       let msg: string;
       if (nextVakatPosition === 6) {
-        // ako je za danasnji dan pozicija 6
-        // u vaktiji napravit
-
-        let zora = vaktija.dailyVakats?.vakat[0];
-        let zoraMoment = Vaktija.getVakatMoment(zora);
-        zoraMoment.add(24, 'hours');
-        let zoraHuman = Vaktija.humanizeVakat(zoraMoment);
-        msg = `$(heart) ${location}: Zora ${zoraHuman} `;
+        let zoraHuman = vaktija.nextZora;
+        vakatName = 'Zora';
+        msg = `$(heart) ${location}: ${vakatName} ${zoraHuman} `;
       } else {
         msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
       }
-
+      showNotification(vakatMoment, vakatName);
       updateStatusBar(msg);
     }
   }, 1000);
@@ -85,4 +83,26 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
     };
   }
   return;
+}
+
+function showNotification(vakatMoment: moment.Duration, vakatName: string) {
+  let minutesLeft: number = parseInt(vakatMoment.format('m'));
+  const userSettings: any = globalContext.globalState.get('userSettings');
+  let userMinutes: number = 0;
+  let ajet =  `„O vjernici, tražite pomoć sa strpljenjem i obavljanjem na­maza! Allah je doista sa strpljivima.“ (El-­Bekare, 153.)`;
+ 
+  
+
+  if (userSettings) {
+    userMinutes = userSettings['reminderIn'];
+  }
+
+  if (userMinutes) {
+    if (minutesLeft === userMinutes) {
+      window.showInformationMessage(
+        `${vakatName} je za ${userMinutes} minuta. ${ajet} \❤ \🕌`
+      );
+    }
+  }
+  
 }

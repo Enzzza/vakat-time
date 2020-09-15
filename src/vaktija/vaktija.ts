@@ -133,6 +133,7 @@ export class Vaktija {
   private _dailyVakats: Vakat | undefined;
   private _nextVakatPosition: number | undefined;
   private _context: ExtensionContext;
+  private _nextZora:string | undefined;
 
 
   constructor(context: ExtensionContext) {
@@ -141,12 +142,14 @@ export class Vaktija {
     this._dailyVakats = this.getDailyVakats({});
     this._nextVakatPosition = this.getNextVakatPosition();
     this._location = this.getLocation();
+    this._nextZora = this.getNextZora();
   }
   reset(){
     this.getLocationID();
     this._dailyVakats = this.getDailyVakats({});
     this._nextVakatPosition = this.getNextVakatPosition();
     this._location = this.getLocation();
+    this._nextZora = this.getNextZora();
   }
   get locationID() {
     return this._locationID;
@@ -164,6 +167,20 @@ export class Vaktija {
     return this._nextVakatPosition;
   }
 
+  get nextZora(){
+    return this._nextZora;
+  }
+
+  private getNextZora(){
+    if(this.dailyVakats){
+      let zora = this.dailyVakats.vakat[0];
+      let zoraMoment = Vaktija.getVakatMoment(zora);
+      zoraMoment.add(24, 'hours');
+      let zoraHuman = Vaktija.humanizeVakat(zoraMoment);
+      return zoraHuman;
+    }
+    return;
+  }
   private getLocationID(): void {
     const userSettings: any = this._context.globalState.get('userSettings');
 
