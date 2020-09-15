@@ -85,15 +85,14 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
 }
 
 function showNotification(vakatMoment: moment.Duration, vakatName: string) {
-  let secondsLeft: number = Math.floor(parseInt(vakatMoment.asSeconds().toString()));
+  let secondsLeft: number = Math.floor(
+    parseInt(vakatMoment.asSeconds().toString())
+  );
   const userSettings: any = globalContext.globalState.get('userSettings');
   let userSeconds: number = 0;
-  
 
   let ajet = `„O vjernici, tražite pomoć sa strpljenjem i obavljanjem na­maza! Allah je doista sa strpljivima.“ (El-­Bekare, 153.)`;
-  
-  console.log(Math.floor(parseInt(vakatMoment.asSeconds().toString())));
- 
+
   if (userSettings) {
     userSeconds = userSettings['reminderIn'];
     userSeconds *= 60;
