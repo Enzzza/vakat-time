@@ -2,9 +2,11 @@
 	"name": "vaktijatime",
 	"displayName": "Vaktija Time",
 	"description": "Vaktija Time is plugin that notifies user about salah time.",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"publisher": "EnisHabul",
-	"author": {"name": "Enis Habul"},
+	"author": {
+		"name": "Enis Habul"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Enzzza/vaktijatime"
@@ -13,7 +15,11 @@
 		"vscode": "^1.49.0"
 	},
 	"license": "MIT",
-	"keywords": ["vaktija", "salah","namaz"],
+	"keywords": [
+		"vaktija",
+		"salah",
+		"namaz"
+	],
 	"categories": [
 		"Other"
 	],
@@ -27,10 +33,12 @@
 	],
 	"main": "./dist/extension",
 	"contributes": {
-		"commands": [{
-			"command": "vaktija.userSettings",
-			"title": "User Settings"
-		}]
+		"commands": [
+			{
+				"command": "vaktija.userSettings",
+				"title": "User Settings"
+			}
+		]
 	},
 	"scripts": {
 		"compile": "tsc -p ./",
