@@ -4,6 +4,11 @@
 	"description": "Vaktija Time is plugin that notifies user about salah time.",
 	"version": "1.0.0",
 	"publisher": "EnisHabul",
+	"author": {"name": "Enis Habul"},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Enzzza/vaktijatime"
+	},
 	"engines": {
 		"vscode": "^1.49.0"
 	},
@@ -12,6 +17,11 @@
 	"categories": [
 		"Other"
 	],
+	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#37474F",
+		"theme": "dark"
+	},
 	"activationEvents": [
 		"onStartupFinished"
 	],
