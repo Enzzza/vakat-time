@@ -34,7 +34,7 @@ const toOrdinalSuffixHours = (num: any) => {
     : ordinals[4];
 };
 
-const translate = (number: any, withoutSuffix: any, key: any) => {
+const translate = (number: any, withoutSuffix: any, key: any):string => {
   var result = number + ' ';
   // eslint-disable-next-line default-case
   switch (key) {
@@ -87,6 +87,7 @@ const translate = (number: any, withoutSuffix: any, key: any) => {
       }
       return result;
   }
+  return result;
 };
 
 moment.updateLocale('bs', {
