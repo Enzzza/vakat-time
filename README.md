@@ -9,7 +9,13 @@
 
 <h4 align="center">Track  salah time inside your Visual Studio Code</h4>
 <br>
-
+<p align="center">
+    <a href="https://marketplace.visualstudio.com/items?itemName=EnisHabul.vaktijatime"><img src="https://vsmarketplacebadge.apphb.com/version-short/EnisHabul.vaktijatime.svg?style=for-the-badge&colorA=252526&colorB=43A047&label=VERSION" alt="Version"></a>&nbsp;
+    <a href="https://marketplace.visualstudio.com/items?itemName=EnisHabul.vaktijatime"><img src="https://vsmarketplacebadge.apphb.com/installs-short/EnisHabul.vaktijatime.svg?style=for-the-badge&colorA=252526&colorB=43A047&label=Installs" alt="Installs"></a>&nbsp;
+    <a href="https://marketplace.visualstudio.com/items?itemName=EnisHabul.vaktijatime"><img src="https://vsmarketplacebadge.apphb.com/downloads-short/EnisHabul.vaktijatime.svg?style=for-the-badge&colorA=252526&colorB=43A047&label=Downloads" alt="Downloads"></a>
+    
+    
+</p>
 
 <br>
 
