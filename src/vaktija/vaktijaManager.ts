@@ -36,6 +36,7 @@ function startVaktija() {
         nextVakatPosition,
         vakatMoment,
       } = vakatProps;
+      
       let msg: string;
       if (nextVakatPosition === 6) {
         let zoraHuman = vaktija.nextZora;
@@ -44,8 +45,9 @@ function startVaktija() {
       } else {
         msg = `$(heart) ${location}: ${vakatName} ${humanizedVakat} `;
       }
-      showNotification(vakatMoment, vakatName);
+      shouldShowNotification(vakatMoment, vakatName);
       updateStatusBar(msg);
+      isNewVakat(vakatMoment);
     }
   }, 1000);
 }
@@ -84,7 +86,7 @@ function getVakatProps(vaktija: Vaktija): VakatProps | undefined {
   return;
 }
 
-function showNotification(vakatMoment: moment.Duration, vakatName: string) {
+function shouldShowNotification(vakatMoment: moment.Duration, vakatName: string) {
   let secondsLeft: number = Math.floor(
     parseInt(vakatMoment.asSeconds().toString())
   );
@@ -105,4 +107,15 @@ function showNotification(vakatMoment: moment.Duration, vakatName: string) {
       );
     }
   }
+}
+
+function isNewVakat(vakatMoment:moment.Duration){
+  let secondsLeft: number = Math.floor(
+    parseInt(vakatMoment.asSeconds().toString())
+  );
+  if(secondsLeft === 0){
+    restartVaktija();
+  }
+
+
 }
