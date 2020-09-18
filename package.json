@@ -2,7 +2,7 @@
 	"name": "vaktijatime",
 	"displayName": "Vakat Time",
 	"description": "Vakat Time is plugin that notifies user about salah time.",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"publisher": "EnisHabul",
 	"author": {
 		"name": "Enis Habul"
