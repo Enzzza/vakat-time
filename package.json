@@ -1,7 +1,7 @@
 {
 	"name": "vaktijatime",
-	"displayName": "Vaktija Time",
-	"description": "Vaktija Time is plugin that notifies user about salah time.",
+	"displayName": "Vakat Time",
+	"description": "Vakat Time is plugin that notifies user about salah time.",
 	"version": "1.1.0",
 	"publisher": "EnisHabul",
 	"author": {
@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Enzzza/vaktijatime"
+		"url": "https://github.com/Enzzza/vakat-time"
 	},
 	"engines": {
 		"vscode": "^1.49.0"

@@ -1,8 +1,8 @@
 <h1 align="center">
   <br>
-    <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/icon.png?raw=true" alt="logo" width="100">
+    <img src="https://github.com/Enzzza/vakat-time/blob/master/images/icon.png?raw=true" alt="logo" width="100">
   <br><br>
-  VaktijaTime
+  Vakat Time
   <br>
   <br>
 </h1>
@@ -19,7 +19,7 @@
 
 <br>
 
-# VaktijaTime
+# Vakat Time
 
 <br />
 <p>This extension will show you the muslim daily salah times inside VSCode.</p> 
@@ -32,7 +32,7 @@
 
 <br />
 <p align="center" style="margin: 0 10%">
-  <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/StatusBar.PNG?raw=true" alt="Status bar" />
+  <img src="https://github.com/Enzzza/vakat-time/blob/master/images/StatusBar.PNG?raw=true" alt="Status bar" />
 </p>
 <br />
 
@@ -47,7 +47,7 @@
 **2. Choose your location from list**
 
 <p align="center" style="margin: 0 10%">
-  <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/Location.PNG?raw=true" alt="Location" />
+  <img src="https://github.com/Enzzza/vakat-time/blob/master/images/Location.PNG?raw=true" alt="Location" />
 </p>
 
 <br/>
@@ -55,7 +55,7 @@
 **3. Choose if you want to recive notifications or not**
 
 <p align="center" style="margin: 0 10%">
-  <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/NotificationTime.PNG?raw=true" alt="Notifications" />
+  <img src="https://github.com/Enzzza/vakat-time/blob/master/images/NotificationTime.PNG?raw=true" alt="Notifications" />
 </p>
 
 <br/>
@@ -63,7 +63,7 @@
 **4. Your settings are saved and will be used in future**
 
 <p align="center" style="margin: 0 10%">
-  <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/SettingsSaved.PNG?raw=true" alt="Notification saved" />
+  <img src="https://github.com/Enzzza/vakat-time/blob/master/images/SettingsSaved.PNG?raw=true" alt="Notification saved" />
 </p>
 
 <br/>
@@ -71,7 +71,7 @@
 **5. If you have chosen to receive notification you will see this**
 
 <p align="center" style="margin: 0 10%">
-  <img src="https://github.com/Enzzza/vaktijatime/blob/master/images/NotificationAlert.PNG?raw=true" alt="Notification alert" />
+  <img src="https://github.com/Enzzza/vakat-time/blob/master/images/NotificationAlert.PNG?raw=true" alt="Notification alert" />
 </p>
 
 <br/>
