@@ -39,6 +39,7 @@ function startVaktija() {
       
       let msg: string;
       if (nextVakatPosition === 6) {
+        restartVaktija();
         let zoraHuman = vaktija.nextZora;
         vakatName = 'Zora';
         msg = `$(heart) ${location}: ${vakatName} ${zoraHuman} `;

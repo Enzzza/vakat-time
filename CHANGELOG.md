@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.1.2] - 2020-11-26
+
+### Fixed
+
+- Fixed bug when salah time is not correct after last salah in day
+
 ## [1.1.1] - 2020-09-18
 
 ### Changed
